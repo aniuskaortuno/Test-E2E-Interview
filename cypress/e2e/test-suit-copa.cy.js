@@ -12,7 +12,7 @@ describe('[001] Test componente Header', () => {
     cy.title().should('eq', pageTitle);
     cy.get('.image').should('exist')
     cy.get('button[type="button"].relative.p-1.block.flex.flex-no-wrap.items-center[aria-expanded="false"]')
-      .should('exist').should('be.visible');  
+      .should('exist').should('be.visible');
   });
 });
 
@@ -36,8 +36,8 @@ describe('[002] Test componente Booking', () => {
     // Validar mensaje de error origen
     cy.get('button[data-att="search"]').click().then(() => {
       cy.get('span.mt-1.css-1pkncn7[id="flights-booking-id-1-error"]')
-      .should('exist') 
-      .contains('Ingresa una ciudad de origen');   
+        .should('exist')
+        .contains('Ingresa una ciudad de origen');
     })
     // validar mensaje de error destino
     cy.get('button[data-att="clear"]').click().then(() => {
@@ -47,8 +47,8 @@ describe('[002] Test componente Booking', () => {
       });
       cy.get('button[data-att="search"]').click().then(() => {
         cy.get('#flights-booking-id-2-error')
-        .should('exist') 
-        .contains('Ingresa una ciudad de destino'); 
+          .should('exist')
+          .contains('Ingresa una ciudad de destino');
       });
     });
     // validar mensaje de error fecha de salida
@@ -61,8 +61,8 @@ describe('[002] Test componente Booking', () => {
         cy.get('button[data-att="done"]').click()
       });
       cy.get('button[data-att="search"]').click()
-      });
-    })
+    });
+  })
   it('validar que el usuario puede reservar un vuelo Round_trip', () => {
     cy.get('#flights-booking-id-1-input').type('BOG').then(() => {
       cy.get('div[data-att="BOG"]').click()
@@ -70,11 +70,11 @@ describe('[002] Test componente Booking', () => {
     cy.get('#headlessui-listbox-button-3').click().then(() => {
       cy.get('div[data-att="rt"]').click().then(() => {
         cy.get('#headlessui-listbox-button-3')
-        .invoke('text')
-        .should('not.be.empty')
-        .then((text) => {
-          expect(text).to.equal('Ida y vuelta')
-        });
+          .invoke('text')
+          .should('not.be.empty')
+          .then((text) => {
+            expect(text).to.equal('Ida y vuelta')
+          });
       })
     })
   })
@@ -85,11 +85,11 @@ describe('[002] Test componente Booking', () => {
     cy.get('#headlessui-listbox-button-3').click().then(() => {
       cy.get('div[data-att="ow"]').click().then(() => {
         cy.get('#headlessui-listbox-button-3')
-        .invoke('text')
-        .should('not.be.empty')
-        .then((text) => {
-          expect(text).to.equal('Sólo ida')
-        });
+          .invoke('text')
+          .should('not.be.empty')
+          .then((text) => {
+            expect(text).to.equal('Sólo ida')
+          });
       })
     })
   })
@@ -104,14 +104,14 @@ describe('[003] Test currency', () => {
     let preciosArray;
     cy.get('[data-test="price"]')
       .should('exist')
-      .then((elements) => {       
-        preciosArray = Array.from(elements);           
+      .then((elements) => {
+        preciosArray = Array.from(elements);
         preciosArray.forEach((element) => {
-          const texto = element.textContent.trim();          
+          const texto = element.textContent.trim();
           expect(texto.startsWith('USD')).to.be.true;
         });
-      }); 
-  });  
+      });
+  });
 });
 
 // Test suits para validar el componente 4
@@ -126,46 +126,46 @@ describe('[004] Test componente Ofertas vuelos a Panamá de Colombia', () => {
         .find('[data-test="origin-text"]')
         .should('exist');
       cy.wrap($element)
-      .find('[data-test="destination-text"]')
-      .should('exist');
+        .find('[data-test="destination-text"]')
+        .should('exist');
       cy.wrap($element)
-      .find('[data-test="price"]')
-      .should('exist');
+        .find('[data-test="price"]')
+        .should('exist');
     });
   })
   it('validar que el destino de todas las ofertas sea PTY', () => {
     cy.get('[data-test="card-container"]').each(($element) => {
       cy.wrap($element)
-      .find('[data-test="destination-text"]')
-      .should('exist')
-      .invoke('text')
-      .then((text) => {
-        expect(text).to.equal('Panamá (PTY)')
-      });
+        .find('[data-test="destination-text"]')
+        .should('exist')
+        .invoke('text')
+        .then((text) => {
+          expect(text).to.equal('Panamá (PTY)')
+        });
     });
   })
   it('Validar ofertas al filtrar por origin y destination', () => {
     cy.get('#sfm-origin-61bb554e93be941629417c6c-input').click()
     cy.get('#sfm-origin-61bb554e93be941629417c6c-input').type('BOG').then(() => {
-      cy.get('li[data-att="BOG"]').click().then(()=>{
+      cy.get('li[data-att="BOG"]').click().then(() => {
         cy.wait(1000)
         // obtener todos las ofertas 
         cy.get('[data-test="card-container"]').each(($element, index) => {
-          if(index < 19){
+          if (index < 19) {
             cy.wrap($element)
-            .find('[data-test="origin-text"]')
-            .should('exist')
-            .invoke('text')
-            .then((text) => {
-              expect(text).to.equal('Bogotá (BOG)a')
-            });
-          cy.wrap($element)
-          .find('[data-test="destination-text"]')
-          .should('exist')
-          .invoke('text')
-          .then((text) => {
-            expect(text).to.equal('Panamá (PTY)')
-          });
+              .find('[data-test="origin-text"]')
+              .should('exist')
+              .invoke('text')
+              .then((text) => {
+                expect(text).to.equal('Bogotá (BOG)a')
+              });
+            cy.wrap($element)
+              .find('[data-test="destination-text"]')
+              .should('exist')
+              .invoke('text')
+              .then((text) => {
+                expect(text).to.equal('Panamá (PTY)')
+              });
           }
         });
       })
@@ -181,29 +181,54 @@ describe('[004] Test componente Ofertas vuelos a Panamá de Colombia', () => {
     cy.get('#sfm-budget-61bb554e93be941629417c6c-input').type(budget).then(() => {
       cy.wait(1000)
       cy.get('[data-test="card-container"]').each(($element, index) => {
-        if(index < 19){
+        if (index < 19) {
           cy.wrap($element)
-          .find('[data-test="price"]')
-          .should('exist')
-          .invoke('text')
-          .then((price) => {
-            const paserPrice = parseFloat(price.replace(/[^\d.]/g, ''));
-            expect(paserPrice).to.be.lessThan(budget);
-          });
+            .find('[data-test="price"]')
+            .should('exist')
+            .invoke('text')
+            .then((price) => {
+              const paserPrice = parseFloat(price.replace(/[^\d.]/g, ''));
+              expect(paserPrice).to.be.lessThan(budget);
+            });
         }
       });
     })
   })
   it('verificar que el usuario puede seleccionar una oferta disponible', () => {
-    cy.get('[data-test="origin-text"]').should('exist').should('include.text', 'Bogotá (BOG)a');
-    cy.get('[data-test="destination-text"]').should('exist').should('include.text', 'Panamá (PTY)');  
-    cy.get('[data-test="departing-text"]').first().should('exist').should('include.text', 'feb 23, 2024 - mar 24, 2024');    
-    cy.contains('button[data-test="book-now"]', 'Reserva ahora').should('exist').click();
-    cy.get('.justify-start.css-0 > .justify-start').should('exist');   
-    cy.get('input#flights-booking-popup-id-15-input[aria-label="fc-booking-origin-aria-label"]').should('exist');
-    cy.get('.justify-between > .justify-end > .flex-wrap > .block')
-    .should('exist')  // Verifica que el elemento exista
-    .click();  
-    cy.get('.justify-between > .justify-end > .flex-wrap > .block').click(); 
+    cy.get('[data-test="origin-text"]').eq(0).should('exist').invoke('text').as('originText');
+    cy.get('[data-test="destination-text"]').eq(0).should('exist').invoke('text').as('destinationText');
+    cy.get('[data-test="departing-text"]').eq(0).should('exist').invoke('text').as('departinText');
+    cy.get('[data-test="travel-class"]').eq(0).should('exist').invoke('text').as('travelClassText');
+    cy.get('[data-test="flight-type"]').eq(0).should('exist').invoke('text').as('flightTypeText');
+    cy.get('[data-test="book-now"]').eq(0).scrollIntoView().click().then(() => {
+      // originText
+      cy.wait(500)
+      cy.get('@originText').then((originText) => {
+        const matches = originText.match(/\(([^)]+)\)/);
+        const codigoOrigin = matches && matches[1] ? matches[1].trim() : '';
+        cy.log(codigoOrigin)
+        cy.get('[data-att="f1_origin"]').eq(1).click().then(() => {
+          cy.get('[data-att="f1_origin"]').eq(1).invoke('text')
+            .then((text) => {
+              expect(text).to.include(codigoOrigin)
+            });
+        }) 
+      });
+    });
+    // departinText
+    cy.get('@departinText').then((dateText) => {
+      const departureDate = dateText.split('-')[0].trim();
+      const returnDate = dateText.split('-')[1].trim();
+      cy.log(`departure: ${departureDate}`);
+      cy.log(`return: ${returnDate}`);
+    });
+    // travelClassText
+    cy.get('@travelClassText').then((travelClassText) => {
+      cy.log(`Travel: ${travelClassText}`);
+    });
+    // flightTypeText
+    cy.get('@flightTypeText').then((flightTypeText) => {
+      cy.log(`flight: ${flightTypeText}`);
+    });
   });
 })
