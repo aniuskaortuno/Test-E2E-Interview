@@ -1,0 +1,11 @@
+{
+  "name": "test-e2e-interview",
+  "version": "1.0.0",
+  "description": "Test cases for interview",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aniuska Ortuno",
+  "license": "ISC"
+}
