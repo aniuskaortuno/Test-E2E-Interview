@@ -3,12 +3,12 @@ const slug = 'es/vuelos-desde-colombia-a-panama-pa'
 const url = `${host}/${slug}`
 const pageTitle = 'Vuela de Colombia a Panamá'
 
-// Test suit para validar componente 1
-describe('[001] Test componente Header', () => {
+// Test suit to validate component 1
+describe('[001] Test component Header', () => {
   before(() => {
     cy.visit(url);
   });
-  it('validar titulo, logo y lang', () => {
+  it('validate title, logo and lang', () => {
     cy.title().should('eq', pageTitle);
     cy.get('.image').should('exist')
     cy.get('button[type="button"].relative.p-1.block.flex.flex-no-wrap.items-center[aria-expanded="false"]')
@@ -16,12 +16,12 @@ describe('[001] Test componente Header', () => {
   });
 });
 
-// Test suits para validar el componente 2
-describe('[002] Test componente Booking', () => {
+// Test suit to validate component 2
+describe('[002] Test component Booking', () => {
   beforeEach(() => {
     cy.visit(url);
   });
-  it('validar que el booking  tiene todos los elementos', () => {
+  it('validate that the booking has all the elements', () => {
     cy.get('#headlessui-listbox-button-1').should('exist'); // tipo de pago
     cy.get('#headlessui-listbox-button-3').should('exist'); // tipo de vuelo
     cy.get('#headlessui-popover-button-5').should('exist'); // pasajeros
@@ -32,14 +32,14 @@ describe('[002] Test componente Booking', () => {
     cy.get('[data-att="end-date-toggler"]').should('exist'); // fecha de retorno
     cy.get('button[data-att="search"]').should('exist'); // Boton de buscar
   })
-  it('validar que el manejo de datos faltantes', () => {
-    // Validar mensaje de error origen
+  it('validate that handling missing data', () => {
+    // Validate source error message
     cy.get('button[data-att="search"]').click().then(() => {
       cy.get('span.mt-1.css-1pkncn7[id="flights-booking-id-1-error"]')
         .should('exist')
         .contains('Ingresa una ciudad de origen');
     })
-    // validar mensaje de error destino
+    // validate destination error message
     cy.get('button[data-att="clear"]').click().then(() => {
       cy.get('#flights-booking-id-1-input').click();
       cy.get('#flights-booking-id-1-input').type('BOG').then(() => {
@@ -51,7 +51,7 @@ describe('[002] Test componente Booking', () => {
           .contains('Ingresa una ciudad de destino');
       });
     });
-    // validar mensaje de error fecha de salida
+    // validate error message departure date
     cy.get('#flights-booking-id-2-input').click()
     cy.get('#flights-booking-id-2-input').type('PTY').then(() => {
       cy.get('div[data-att="PTY"]').click()
@@ -63,7 +63,7 @@ describe('[002] Test componente Booking', () => {
       cy.get('button[data-att="search"]').click()
     });
   })
-  it('validar que el usuario puede reservar un vuelo Round_trip', () => {
+  it('validate that the user can book a Round_trip flight', () => {
     cy.get('#flights-booking-id-1-input').type('BOG').then(() => {
       cy.get('div[data-att="BOG"]').click()
     });
@@ -78,7 +78,7 @@ describe('[002] Test componente Booking', () => {
       })
     })
   })
-  it('validar que el usuario puede reservar un vuelo One_way', () => {
+  it('validate that the user can book a One_way flight', () => {
     cy.get('#flights-booking-id-1-input').type('BOG').then(() => {
       cy.get('div[data-att="BOG"]').click()
     });
@@ -95,12 +95,12 @@ describe('[002] Test componente Booking', () => {
   })
 })
 
-// Test suit para validar Currency mostrado en las ofertas
+// Test suit to validate Currency shown in offers
 describe('[003] Test currency', () => {
   before(() => {
     cy.visit(url);
   });
-  it('validar que la pagina muestra el currency USD', () => {
+  it('validate that the page shows the currency USD', () => {
     let preciosArray;
     cy.get('[data-test="price"]')
       .should('exist')
@@ -114,13 +114,13 @@ describe('[003] Test currency', () => {
   });
 });
 
-// Test suits para validar el componente 4
-describe('[004] Test componente Ofertas vuelos a Panamá de Colombia', () => {
+// Test suits to validate the component 4
+describe('[004] Test component Offers flights to Panama from Colombia', () => {
   beforeEach(() => {
     cy.visit(url);
   });
-  it('validar que el componente tiene todos los elementos', () => {
-    // obtener todos las ofertas 
+  it('validate that the component has all the elements', () => {
+    // get all offers
     cy.get('[data-test="card-container"]').each(($element) => {
       cy.wrap($element)
         .find('[data-test="origin-text"]')
@@ -133,7 +133,7 @@ describe('[004] Test componente Ofertas vuelos a Panamá de Colombia', () => {
         .should('exist');
     });
   })
-  it('validar que el destino de todas las ofertas sea PTY', () => {
+  it('validate that the destination of all offers is PTY', () => {
     cy.get('[data-test="card-container"]').each(($element) => {
       cy.wrap($element)
         .find('[data-test="destination-text"]')
@@ -144,12 +144,12 @@ describe('[004] Test componente Ofertas vuelos a Panamá de Colombia', () => {
         });
     });
   })
-  it('Validar ofertas al filtrar por origin y destination', () => {
+  it('Validate offers by filtering by origin and destination', () => {
     cy.get('#sfm-origin-61bb554e93be941629417c6c-input').click()
     cy.get('#sfm-origin-61bb554e93be941629417c6c-input').type('BOG').then(() => {
       cy.get('li[data-att="BOG"]').click().then(() => {
         cy.wait(1000)
-        // obtener todos las ofertas 
+        // get all offers 
         cy.get('[data-test="card-container"]').each(($element, index) => {
           if (index < 19) {
             cy.wrap($element)
@@ -171,7 +171,7 @@ describe('[004] Test componente Ofertas vuelos a Panamá de Colombia', () => {
       })
     });
   })
-  it('Validar ofertas por el Budget', () => {
+  it('Validate offers for the Budget', () => {
     const budget = 207
     cy.get('#sfm-origin-61bb554e93be941629417c6c-input').click()
     cy.get('#sfm-origin-61bb554e93be941629417c6c-input').type('BOG').then(() => {
@@ -194,7 +194,7 @@ describe('[004] Test componente Ofertas vuelos a Panamá de Colombia', () => {
       });
     })
   })
-  it('verificar que el usuario puede seleccionar una oferta disponible', () => {
+  it('check data persistence when selecting an offer', () => {
     cy.get('[data-test="origin-text"]').eq(0).should('exist').invoke('text').as('originText');
     cy.get('[data-test="destination-text"]').eq(0).should('exist').invoke('text').as('destinationText');
     cy.get('[data-test="departing-text"]').eq(0).should('exist').invoke('text').as('departinText');
